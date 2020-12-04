@@ -39,7 +39,7 @@ class PersonDetail extends StatelessWidget {
     );
   }
 
-  Widget _showPersonInfo(List<Person> items) {
+  Widget _showPersonInfo(List<PersonFilm> items) {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, i) {
@@ -52,23 +52,34 @@ class PersonDetail extends StatelessWidget {
     );
   }
 
-  Widget _personCard(BuildContext context, Person actor) {
+  Widget _personCard(BuildContext context, PersonFilm film) {
     return Container(
-      child: Column(
+      child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
             child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, 'person-detail',
-                  arguments: actor),
+              onTap: () => {},
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/no-image.jpg'),
                 height: 150.0,
                 fit: BoxFit.cover,
-                image: NetworkImage(actor.getPersonCastingImage()),
+                image: NetworkImage(film.getPersonCastingImage()),
               ),
             ),
-          )
+          ),
+          Column(
+            children: [
+              Text(film.title),
+              Text(film.character),
+              Text(film.originalTitle),
+              Text(film.releaseDate),
+              Row(children: [
+                Icon(Icons.star_border),
+                Text(film.voteAverage.toString()),
+              ]),
+            ],
+          ),
         ],
       ),
     );

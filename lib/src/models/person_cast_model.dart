@@ -1,17 +1,17 @@
 class PersonCast {
-  List<Person> filmsInfo = new List();
+  List<PersonFilm> filmsInfo = new List();
 
   PersonCast.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
     jsonList.forEach((element) {
-      final item = Person.fromJsonMap(element);
+      final item = PersonFilm.fromJsonMap(element);
       filmsInfo.add(item);
     });
   }
 }
 
-class Person {
+class PersonFilm {
   int id;
   bool video;
   int voteCount;
@@ -32,7 +32,7 @@ class Person {
   String department;
   String job;
 
-  Person({
+  PersonFilm({
     this.id,
     this.video,
     this.voteCount,
@@ -54,7 +54,7 @@ class Person {
     this.job,
   });
 
-  Person.fromJsonMap(Map<String, dynamic> json) {
+  PersonFilm.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
     video = json['video'];
     voteCount = json['vote_count'];
