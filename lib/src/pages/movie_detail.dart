@@ -123,21 +123,25 @@ class MovieDetail extends StatelessWidget {
           pageSnapping: false,
           itemCount: actors.length,
           controller: PageController(viewportFraction: 0.3, initialPage: 1),
-          itemBuilder: (context, i) => _actorCard(actors[i])),
+          itemBuilder: (context, i) => _actorCard(context, actors[i])),
     );
   }
 
-  Widget _actorCard(Actor actor) {
+  Widget _actorCard(BuildContext context, Actor actor) {
     return Container(
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                height: 150.0,
-                fit: BoxFit.cover,
-                image: NetworkImage(actor.getCastingImage())),
+            child: GestureDetector(
+              onTap: () => Navigator.pushNamed(context, 'person-detail',
+                  arguments: actor),
+              child: FadeInImage(
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  height: 150.0,
+                  fit: BoxFit.cover,
+                  image: NetworkImage(actor.getCastingImage())),
+            ),
           ),
           Text(
             actor.name,

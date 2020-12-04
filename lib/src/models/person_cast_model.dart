@@ -1,12 +1,12 @@
 class PersonCast {
-  List<Person> persons = new List();
+  List<Person> filmsInfo = new List();
 
   PersonCast.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
     jsonList.forEach((element) {
-      final person = Person.fromJsonMap(element);
-      persons.add(person);
+      final item = Person.fromJsonMap(element);
+      filmsInfo.add(item);
     });
   }
 }
@@ -20,7 +20,7 @@ class Person {
   String releaseDate;
   String originalLanguage;
   String originalTitle;
-  List<int> genreIds;
+  List<dynamic> genreIds;
   String backdropPath;
   bool adult;
   String overview;
@@ -57,20 +57,20 @@ class Person {
   Person.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
     video = json['video'];
-    voteCount = json['vote-count'];
-    voteAverage = json['vote-average'];
+    voteCount = json['vote_count'];
+    voteAverage = json['vote_average'];
     title = json['title'];
-    releaseDate = json['release-date'];
-    originalLanguage = json['original-language'];
-    originalTitle = json['original-title'];
-    genreIds = json['genre-ids'];
-    backdropPath = json['backdrop-path'];
+    releaseDate = json['release_date'];
+    originalLanguage = json['original_language'];
+    originalTitle = json['original_title'];
+    genreIds = json['genre_ids'];
+    backdropPath = json['backdrop_path'];
     adult = json['adult'];
     overview = json['overview'];
-    posterPath = json['poster-path'];
+    posterPath = json['poster_path'];
     popularity = json['popularity'];
     character = json['character'];
-    creditId = json['credit-id'];
+    creditId = json['credit_id'];
     order = json['order'];
     department = json['department'];
     job = json['job'];

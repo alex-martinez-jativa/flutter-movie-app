@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:movies_app/src/models/actors_model.dart';
 import 'package:movies_app/src/models/movie_model.dart';
+import 'package:movies_app/src/models/person_cast_model.dart';
 
 class MoviesProvider {
   String _apikey = '66e60311159e6e3b25bbf0e38caa0c58';
@@ -89,5 +90,20 @@ class MoviesProvider {
         {'api_key': _apikey, 'language': _language, 'query': query});
 
     return await _getResponse(url);
+  }
+
+  Future<List<Person>> getPersonInfo(String personId) async {
+    final url = Uri.https(_url, '3/person/$personId/movie_credits', {
+      'api_key': _apikey,
+      'language': _language,
+    });
+
+    final response = await http.get(url);
+    //decodifica y crea el mapa
+    final decodedData = json.decode(response.body);
+    //nueva instancia del modelo
+    final personFilmsInfo = new PersonCast.fromJsonList(decodedData['cast']);
+
+    return personFilmsInfo.filmsInfo;
   }
 }
