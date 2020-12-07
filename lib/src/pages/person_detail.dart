@@ -53,32 +53,54 @@ class PersonDetail extends StatelessWidget {
   }
 
   Widget _personCard(BuildContext context, PersonFilm film) {
+    double _width = MediaQuery.of(context).size.width * 0.6;
+    String releaseDate;
+    if (film.releaseDate.isNotEmpty) {
+      releaseDate = film.releaseDate;
+    } else {
+      releaseDate = 'n/a';
+    }
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(05.0),
             child: GestureDetector(
               onTap: () => {},
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/no-image.jpg'),
-                height: 150.0,
-                fit: BoxFit.cover,
+                width: 60.0,
+                /* height: 150.0, */
+                fit: BoxFit.contain,
                 image: NetworkImage(film.getPersonCastingImage()),
               ),
             ),
           ),
-          Column(
-            children: [
-              Text(film.title),
-              Text(film.character),
-              Text(film.originalTitle),
-              Text(film.releaseDate),
-              Row(children: [
-                Icon(Icons.star_border),
-                Text(film.voteAverage.toString()),
-              ]),
-            ],
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              width: _width,
+              child: Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      film.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(film.character),
+                    Text(film.originalTitle),
+                    Text(releaseDate),
+                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      Icon(Icons.star_border),
+                      Text(film.voteAverage.toString()),
+                    ]),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
