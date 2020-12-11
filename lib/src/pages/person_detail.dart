@@ -55,8 +55,6 @@ class PersonDetail extends StatelessWidget {
 
   Widget _personCard(BuildContext context, PersonFilm film) {
     double _width = MediaQuery.of(context).size.width * 0.6;
-    String releaseDate;
-    String character;
     film.uniqueId = '${film.id}-detail';
 
     return Container(
@@ -65,17 +63,20 @@ class PersonDetail extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10.0),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(05.0),
-            child: GestureDetector(
-              onTap: () =>
-                  Navigator.pushNamed(context, 'detail', arguments: film),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                width: 60.0,
-                /* height: 150.0, */
-                fit: BoxFit.contain,
-                image: NetworkImage(film.getPersonCastingImage()),
+          Hero(
+            tag: film.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(05.0),
+              child: GestureDetector(
+                onTap: () =>
+                    Navigator.pushNamed(context, 'detail', arguments: film),
+                child: FadeInImage(
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  width: 60.0,
+                  /* height: 150.0, */
+                  fit: BoxFit.contain,
+                  image: NetworkImage(film.getPersonCastingImage()),
+                ),
               ),
             ),
           ),
