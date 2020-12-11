@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/actors_model.dart';
+import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/models/person_cast_model.dart';
 import 'package:movies_app/src/providers/movie_provider.dart';
 import 'package:movies_app/src/utils/linearGradient.dart';
@@ -55,19 +56,23 @@ class PersonDetail extends StatelessWidget {
   Widget _personCard(BuildContext context, PersonFilm film) {
     double _width = MediaQuery.of(context).size.width * 0.6;
     String releaseDate;
+    film.uniqueId = '${film.id}-detail';
     if (film.releaseDate.isNotEmpty) {
       releaseDate = film.releaseDate;
     } else {
       releaseDate = 'n/a';
     }
     return Container(
+      color: Colors.grey[200],
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      margin: EdgeInsets.only(bottom: 10.0),
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(05.0),
             child: GestureDetector(
-              onTap: () => {},
+              onTap: () =>
+                  Navigator.pushNamed(context, 'detail', arguments: film),
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/no-image.jpg'),
                 width: 60.0,
@@ -90,9 +95,18 @@ class PersonDetail extends StatelessWidget {
                       film.title,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(film.character),
-                    Text(film.originalTitle),
-                    Text(releaseDate),
+                    Text(
+                      film.character,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      film.originalTitle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      releaseDate,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                       Icon(Icons.star_border),
                       Text(film.voteAverage.toString()),

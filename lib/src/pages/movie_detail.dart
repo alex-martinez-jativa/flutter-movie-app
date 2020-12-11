@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/models/actors_model.dart';
+import 'package:movies_app/src/models/person_cast_model.dart';
 import 'package:movies_app/src/providers/movie_provider.dart';
 import 'package:movies_app/src/utils/linearGradient.dart';
 import 'package:movies_app/src/models/movie_model.dart';
@@ -8,7 +9,21 @@ class MovieDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //argumentos recibidos desde movie horizontal por la ruta
-    final Movie movie = ModalRoute.of(context).settings.arguments;
+    final arg = ModalRoute.of(context).settings.arguments;
+    _checkType(arg) {
+      if (arg is Movie) {
+        Movie movie;
+        movie = arg;
+        return movie;
+      }
+      if (arg is PersonFilm) {
+        PersonFilm movie;
+        movie = arg;
+        return movie;
+      }
+    }
+
+    var movie = _checkType(arg);
 
     return Scaffold(
         body: CustomScrollView(
@@ -25,7 +40,7 @@ class MovieDetail extends StatelessWidget {
     ));
   }
 
-  Widget _createAppbar(Movie movie) {
+  Widget _createAppbar(movie) {
     return SliverAppBar(
       elevation: 2.0,
       expandedHeight: 200.0,
@@ -50,7 +65,7 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  Widget _moviePosterTitle(BuildContext context, Movie movie) {
+  Widget _moviePosterTitle(BuildContext context, movie) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(children: [
@@ -90,7 +105,7 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  Widget _movieDescription(Movie movie) {
+  Widget _movieDescription(movie) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
@@ -100,14 +115,14 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  Widget _getCasting(Movie movie) {
+  Widget _getCasting(movie) {
     final moviesProvider = new MoviesProvider();
 
     return FutureBuilder(
       future: moviesProvider.getCast(movie.id.toString()),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (snapshot.hasData) {
-          return _getActorsPageView(snapshot.data);
+          return _getActorsPageView(snapshot.data, movie);
         }
         return Center(
           child: CircularProgressIndicator(),
@@ -116,18 +131,18 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  Widget _getActorsPageView(List<Actor> actors) {
+  Widget _getActorsPageView(List<Actor> actors, movie) {
     return SizedBox(
       height: 200.0,
       child: PageView.builder(
           pageSnapping: false,
           itemCount: actors.length,
           controller: PageController(viewportFraction: 0.3, initialPage: 1),
-          itemBuilder: (context, i) => _actorCard(context, actors[i])),
+          itemBuilder: (context, i) => _actorCard(context, actors[i], movie)),
     );
   }
 
-  Widget _actorCard(BuildContext context, Actor actor) {
+  Widget _actorCard(BuildContext context, Actor actor, movie) {
     return Container(
       child: Column(
         children: [

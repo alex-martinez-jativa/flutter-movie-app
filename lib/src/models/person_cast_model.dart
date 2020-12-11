@@ -12,6 +12,7 @@ class PersonCast {
 }
 
 class PersonFilm {
+  String uniqueId;
   int id;
   bool video;
   int voteCount;
@@ -33,6 +34,7 @@ class PersonFilm {
   String job;
 
   PersonFilm({
+    this.uniqueId,
     this.id,
     this.video,
     this.voteCount,
@@ -81,5 +83,19 @@ class PersonFilm {
       return 'https://www.pasd.es/wp-content/uploads/2015/12/No-Avatar-High-Definition.jpg';
     }
     return 'https://image.tmdb.org/t/p/original/$posterPath';
+  }
+
+  getMoviePoster() {
+    if (posterPath == null) {
+      return 'https://www.cumbriaeducationtrust.org/wp-content/uploads/2016/01/placeholder.png';
+    }
+    return 'https://image.tmdb.org/t/p/original/$posterPath';
+  }
+
+  getMovieBackgroundImage() {
+    if (backdropPath == null) {
+      return 'https://www.cumbriaeducationtrust.org/wp-content/uploads/2016/01/placeholder.png';
+    }
+    return 'https://image.tmdb.org/t/p/original/$backdropPath';
   }
 }

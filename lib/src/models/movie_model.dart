@@ -74,7 +74,7 @@ class Movie {
   }
 
   getMovieBackgroundImage() {
-    if (posterPath == null) {
+    if (backdropPath == null) {
       return 'https://www.cumbriaeducationtrust.org/wp-content/uploads/2016/01/placeholder.png';
     }
     return 'https://image.tmdb.org/t/p/original/$backdropPath';
