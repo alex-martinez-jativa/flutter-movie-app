@@ -44,17 +44,15 @@ class PersonDetail extends StatelessWidget {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, i) {
-        return Container(
-          child: Column(
-            children: [_personCard(context, items[i])],
-          ),
+        return Column(
+          children: [_personCard(context, items[i])],
         );
       },
     );
   }
 
   Widget _personCard(BuildContext context, PersonFilm film) {
-    double _width = MediaQuery.of(context).size.width * 0.6;
+    double _width = MediaQuery.of(context).size.width * 0.75;
     film.uniqueId = '${film.id}-detail';
 
     return Container(
@@ -83,43 +81,39 @@ class PersonDetail extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             width: _width,
-            child: Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    film.title == null || film.title.isEmpty
-                        ? 'n/a'
-                        : film.title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    film.character == null || film.character.isEmpty
-                        ? 'n/a'
-                        : film.character,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    film.originalTitle == null || film.originalTitle.isEmpty
-                        ? 'na'
-                        : film.originalTitle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    film.releaseDate == null || film.releaseDate.isEmpty
-                        ? 'n/a'
-                        : film.releaseDate,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Icon(Icons.star_border),
-                    Text(film.voteAverage == null || film.voteAverage.isNaN
-                        ? 'n/a'
-                        : film.voteAverage.toString()),
-                  ]),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  film.title == null || film.title.isEmpty ? 'n/a' : film.title,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  film.character == null || film.character.isEmpty
+                      ? 'n/a'
+                      : film.character,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  film.originalTitle == null || film.originalTitle.isEmpty
+                      ? 'na'
+                      : film.originalTitle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  film.releaseDate == null || film.releaseDate.isEmpty
+                      ? 'n/a'
+                      : film.releaseDate,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Icon(Icons.star_border),
+                  Text(film.voteAverage == null || film.voteAverage.isNaN
+                      ? 'n/a'
+                      : film.voteAverage.toString()),
+                ]),
+              ],
             ),
           ),
         ],
