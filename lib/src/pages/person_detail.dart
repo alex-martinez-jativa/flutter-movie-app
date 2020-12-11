@@ -56,12 +56,9 @@ class PersonDetail extends StatelessWidget {
   Widget _personCard(BuildContext context, PersonFilm film) {
     double _width = MediaQuery.of(context).size.width * 0.6;
     String releaseDate;
+    String character;
     film.uniqueId = '${film.id}-detail';
-    if (film.releaseDate.isNotEmpty) {
-      releaseDate = film.releaseDate;
-    } else {
-      releaseDate = 'n/a';
-    }
+
     return Container(
       color: Colors.grey[200],
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -82,37 +79,45 @@ class PersonDetail extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              width: _width,
-              child: Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      film.title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      film.character,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      film.originalTitle,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      releaseDate,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      Icon(Icons.star_border),
-                      Text(film.voteAverage.toString()),
-                    ]),
-                  ],
-                ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            width: _width,
+            child: Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    film.title == null || film.title.isEmpty
+                        ? 'n/a'
+                        : film.title,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    film.character == null || film.character.isEmpty
+                        ? 'n/a'
+                        : film.character,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    film.originalTitle == null || film.originalTitle.isEmpty
+                        ? 'na'
+                        : film.originalTitle,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    film.releaseDate == null || film.releaseDate.isEmpty
+                        ? 'n/a'
+                        : film.releaseDate,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Icon(Icons.star_border),
+                    Text(film.voteAverage == null || film.voteAverage.isNaN
+                        ? 'n/a'
+                        : film.voteAverage.toString()),
+                  ]),
+                ],
               ),
             ),
           ),
