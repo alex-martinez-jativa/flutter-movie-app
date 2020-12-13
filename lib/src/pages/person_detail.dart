@@ -52,7 +52,12 @@ class PersonDetail extends StatelessWidget {
   }
 
   Widget _personCard(BuildContext context, PersonFilm film) {
-    double _width = MediaQuery.of(context).size.width * 0.75;
+    double _width;
+    final _screenSize = MediaQuery.of(context).size;
+    _screenSize.width > 400
+        ? _width = _screenSize.width * 0.75
+        : _width = _screenSize.width * 0.70;
+
     film.uniqueId = '${film.id}-detail';
 
     return Container(

@@ -15,7 +15,9 @@ class CardSwipper extends StatelessWidget {
       padding: EdgeInsets.only(top: 0.5),
       child: Swiper(
         layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.7,
+        itemWidth: _screenSize.width > 400
+            ? _screenSize.width * 0.7
+            : _screenSize.width * 0.6,
         itemHeight: _screenSize.height * 0.5,
         itemBuilder: (BuildContext context, int index) {
           movies[index].uniqueId = '${movies[index].id}-card';

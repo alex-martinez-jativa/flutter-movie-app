@@ -10,18 +10,6 @@ class MovieDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     //argumentos recibidos desde movie horizontal por la ruta
     final arg = ModalRoute.of(context).settings.arguments;
-    _checkType(arg) {
-      if (arg is Movie) {
-        Movie movie;
-        movie = arg;
-        return movie;
-      }
-      if (arg is PersonFilm) {
-        PersonFilm movie;
-        movie = arg;
-        return movie;
-      }
-    }
 
     var movie = _checkType(arg);
 
@@ -50,9 +38,15 @@ class MovieDetail extends StatelessWidget {
         decoration: BoxDecoration(gradient: linearGradient()),
         child: FlexibleSpaceBar(
           centerTitle: true,
-          title: Text(
-            movie.title,
-            style: TextStyle(color: Colors.white, fontSize: 16.0),
+          title: Padding(
+            padding: const EdgeInsets.all(05.0),
+            child: Text(
+              movie.title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  backgroundColor: Colors.black),
+            ),
           ),
           background: FadeInImage(
             image: NetworkImage(movie.getMovieBackgroundImage()),
@@ -165,5 +159,18 @@ class MovieDetail extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _checkType(arg) {
+    if (arg is Movie) {
+      Movie movie;
+      movie = arg;
+      return movie;
+    }
+    if (arg is PersonFilm) {
+      PersonFilm movie;
+      movie = arg;
+      return movie;
+    }
   }
 }
