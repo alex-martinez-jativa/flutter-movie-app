@@ -38,14 +38,18 @@ class MovieDetail extends StatelessWidget {
         decoration: BoxDecoration(gradient: linearGradient()),
         child: FlexibleSpaceBar(
           centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.all(05.0),
-            child: Text(
-              movie.title,
-              style: TextStyle(
+          title: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Container(
+              color: Colors.black.withOpacity(0.4),
+              padding: EdgeInsets.symmetric(vertical: 05.0, horizontal: 05.0),
+              child: Text(
+                movie.title,
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
-                  backgroundColor: Colors.black),
+                ),
+              ),
             ),
           ),
           background: FadeInImage(
