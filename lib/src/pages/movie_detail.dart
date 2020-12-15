@@ -119,6 +119,9 @@ class MovieDetail extends StatelessWidget {
     return FutureBuilder(
       future: moviesProvider.getCast(movie.id.toString()),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
         if (snapshot.hasData) {
           return _getActorsPageView(snapshot.data, movie);
         }

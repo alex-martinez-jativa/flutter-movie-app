@@ -49,6 +49,9 @@ class HomePage extends StatelessWidget {
     return FutureBuilder(
       future: moviesProvider.getInCinema(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
         if (snapshot.hasData) {
           return CardSwipper(movies: snapshot.data);
         }
@@ -72,6 +75,9 @@ class HomePage extends StatelessWidget {
           StreamBuilder(
             stream: moviesProvider.popularMoviesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
               if (snapshot.hasData) {
                 return MovieHorizontal(
                   movies: snapshot.data,
