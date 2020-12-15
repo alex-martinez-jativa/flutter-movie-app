@@ -3,6 +3,7 @@ import 'package:movies_app/src/models/actors_model.dart';
 import 'package:movies_app/src/models/person_cast_model.dart';
 import 'package:movies_app/src/providers/movie_provider.dart';
 import 'package:movies_app/src/utils/linearGradient.dart';
+import 'package:movies_app/src/widgets/feedback_message.dart';
 
 class PersonDetail extends StatelessWidget {
   @override
@@ -32,7 +33,8 @@ class PersonDetail extends StatelessWidget {
           future: moviesProvider.getPersonInfo(actor.id.toString()),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
+              return FeedbackMessage(
+                  text: snapshot.error.toString(), color: 'warning');
             }
             if (snapshot.hasData) {
               return _showPersonInfo(snapshot.data);

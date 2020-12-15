@@ -4,6 +4,7 @@ import 'package:movies_app/src/models/person_cast_model.dart';
 import 'package:movies_app/src/providers/movie_provider.dart';
 import 'package:movies_app/src/utils/linearGradient.dart';
 import 'package:movies_app/src/models/movie_model.dart';
+import 'package:movies_app/src/widgets/feedback_message.dart';
 
 class MovieDetail extends StatelessWidget {
   @override
@@ -120,7 +121,8 @@ class MovieDetail extends StatelessWidget {
       future: moviesProvider.getCast(movie.id.toString()),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
+          return FeedbackMessage(
+              text: snapshot.error.toString(), color: 'warning');
         }
         if (snapshot.hasData) {
           return _getActorsPageView(snapshot.data, movie);

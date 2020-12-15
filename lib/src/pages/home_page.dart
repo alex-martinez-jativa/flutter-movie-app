@@ -3,6 +3,7 @@ import 'package:movies_app/src/search/search_delegate.dart';
 import 'package:movies_app/src/utils/linearGradient.dart';
 import 'package:movies_app/src/providers/movie_provider.dart';
 import 'package:movies_app/src/widgets/card_swiper_widget.dart';
+import 'package:movies_app/src/widgets/feedback_message.dart';
 import 'package:movies_app/src/widgets/movie_horizontal.dart';
 
 class HomePage extends StatelessWidget {
@@ -50,7 +51,8 @@ class HomePage extends StatelessWidget {
       future: moviesProvider.getInCinema(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
+          return FeedbackMessage(
+              text: snapshot.error.toString(), color: 'warning');
         }
         if (snapshot.hasData) {
           return CardSwipper(movies: snapshot.data);
@@ -76,7 +78,8 @@ class HomePage extends StatelessWidget {
             stream: moviesProvider.popularMoviesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
+                return FeedbackMessage(
+                    text: snapshot.error.toString(), color: 'warning');
               }
               if (snapshot.hasData) {
                 return MovieHorizontal(
